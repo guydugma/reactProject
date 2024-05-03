@@ -1,43 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from 'react';
 import { CardType } from "../@types/types";
 import { getCards } from "../services/cards";
 import ThumbnailCard from "../components/ThumbnailCard/ThumbnailCard";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import { Grid } from "@mui/material";
+import { CardsContext } from '../contexts/CardsContext';
+import { useCards } from '../hooks/useCards';
+
 
 
 const Cards = () => {
-  const [cards, setCards] = useState<CardType[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>();
+  const cardsContext = useContext(CardsContext);
+  const [allCards, setAllCards] = useState<CardType[]>([]);
+  const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
+  const { cards, loading, error } = useCards();
 
-  //SRP:
   useEffect(() => {
-    setError(null);
-    setLoading(true);
-    getCards()
-      .then((res) => {
-        setCards(res.data);
-        setError(null);
-      })
-      .catch((e) => {
-        setError("Network error");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setAllCards(cards);
   }, []);
+  useEffect(() => {
+    const f = allCards.filter((c) => c.title.includes(cardsContext.input));
+    setFilteredCards(f);
+  }, [cardsContext.input]);
 
-  return (
-    <Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4}>
 
-      {cards.map((c) => (
+
+
+  return (<>
+    {cardsContext.loading && <div>{cardsContext.loading}</div>}
+    {cardsContext.error && <div>{cardsContext.error}</div>}
+    {<Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4}>
+      {filteredCards.map((c) => (
         <Grid>
           <ThumbnailCard card={c} />
         </Grid>
       ))}
 
-    </Grid>
+    </Grid>}
+  </>
   );
 };
+
 
 export default Cards;

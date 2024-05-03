@@ -17,12 +17,13 @@ const Profile = () => {
         console.log(e);
       });
   }, []);
-  
+
   return (
     <div>
       <h2>
         {user?.name.first} {user?.name.middle} {user?.name.last}
       </h2>
+      <h2>HELLO</h2>
     </div>
   );
 };

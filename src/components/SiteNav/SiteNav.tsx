@@ -20,7 +20,6 @@ const SiteNav = () => {
         <Navbar.Collapse id="basic-navbar-nav" className="visible">
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <NavLink to={"Profile"}>Profile</NavLink>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -36,9 +35,9 @@ const SiteNav = () => {
         </Navbar.Collapse>
         <Navbar.Collapse className=" visible justify-end" >
           <Nav>
-            {!isLoggedIn && <NavLink to="/register">Register</NavLink>}
-            {!isLoggedIn && <NavLink to="/login">Login</NavLink>}
-            {isLoggedIn && (
+            {!isLoggedIn && <><NavLink to="/register">Register</NavLink><NavLink to="/login">Login</NavLink></>}
+            {isLoggedIn && (<>
+              <NavLink to="/profile"><RxAvatar /></NavLink>
               <button
                 onClick={() => {
                   logout();
@@ -47,9 +46,7 @@ const SiteNav = () => {
               >
                 Logout
               </button>
-            )}
-
-            {isLoggedIn && <NavLink to="/profile"><RxAvatar /></NavLink>}
+            </>)}
           </Nav>
           <Buttontry />
         </Navbar.Collapse>

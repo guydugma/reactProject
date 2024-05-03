@@ -7,7 +7,7 @@ export const TryContext = React.createContext({ toggleColorMode: () => { } });
 
 
 export const TryProvider = ({ children }) => {
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
 
   const colorMode = React.useMemo(
     () => ({

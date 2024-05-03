@@ -63,6 +63,12 @@ export type ErrorType = {
   details: string;
 };
 
+export type decodedType = {
+  _id: string;
+  isBuisiness: boolean;
+  isAdmin: boolean;
+}
+
 
 // טיפוס לפונקציה שמקבלת ילדים ומחזירה אלמנט של ראקט
 export type FCC = ({ children: ReactNode }) => ReactNode;

@@ -1,4 +1,6 @@
+import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
+import { decodedType } from "../@types/types";
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -20,6 +22,8 @@ export const AuthContextProvider = ({ children }) => {
   const login = (jwt: string) => {
     setIsLoggedIn(true);
     localStorage.setItem("token", jwt);
+    let decoded: decodedType = jwtDecode(jwt);
+    localStorage.setItem("user_id", decoded._id);
   };
 
   const logout = () => {

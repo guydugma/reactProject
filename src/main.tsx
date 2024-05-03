@@ -12,13 +12,16 @@ import { router } from "./routes/router.tsx";
 import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 import { TryProvider } from "./contexts/TryContext.tsx";
 import CssBaseline from "@mui/material/CssBaseline";
+import { CardsProvider } from "./contexts/CardsContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthContextProvider>
       <TryProvider>
-        <CssBaseline />
-        <RouterProvider router={router} />
+        <CardsProvider>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </CardsProvider>
       </TryProvider>
     </AuthContextProvider>
   </React.StrictMode>
