@@ -5,33 +5,34 @@ import ThumbnailCard from "../components/ThumbnailCard/ThumbnailCard";
 import { Grid } from "@mui/material";
 import { CardsContext } from '../contexts/CardsContext';
 import { useCards } from '../hooks/useCards';
+import MediaCard from '../components/ThumbnailCard/MediaCard';
 
 
 
 const Cards = () => {
   const cardsContext = useContext(CardsContext);
-  const [allCards, setAllCards] = useState<CardType[]>([]);
-  const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const { cards, loading, error } = useCards();
+  const [filteredCards, setFilteredCards] = useState<CardType[]>(cards);
 
   useEffect(() => {
-    setAllCards(cards);
-  }, []);
-  useEffect(() => {
-    const f = allCards.filter((c) => c.title.includes(cardsContext.input));
+    const f = cards.filter((c) => c.title.includes(cardsContext.input));
     setFilteredCards(f);
   }, [cardsContext.input]);
+
+  useEffect(() => {
+    setFilteredCards(cards);
+  }, [loading]);
 
 
 
 
   return (<>
-    {cardsContext.loading && <div>{cardsContext.loading}</div>}
-    {cardsContext.error && <div>{cardsContext.error}</div>}
-    {<Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4}>
+    {loading && <div>{loading}</div>}
+    {error && <div>{error}</div>}
+    {<Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4} sx={{ mt: 5 }}>
       {filteredCards.map((c) => (
-        <Grid>
-          <ThumbnailCard card={c} />
+        <Grid item key={c._id}>
+          <MediaCard card={c} />
         </Grid>
       ))}
 

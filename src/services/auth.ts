@@ -20,6 +20,7 @@ export const userDetails = (id: string) => {
 };
 
 
+
 export const auth = {
   register,
   login,

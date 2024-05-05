@@ -65,7 +65,7 @@ export type ErrorType = {
 
 export type decodedType = {
   _id: string;
-  isBuisiness: boolean;
+  isBusiness: boolean;
   isAdmin: boolean;
 }
 

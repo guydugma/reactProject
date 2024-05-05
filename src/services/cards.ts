@@ -9,4 +9,10 @@ export const createCard = (data: CardType) => axios.post(baseUrl,data, {
   headers: {
     "x-auth-token": localStorage.getItem("token"),
   },
-} );
+});
+
+export const likeCard = (id: string) => axios.patch(baseUrl + `/${id}`, {
+    headers: {
+    "x-auth-token": localStorage.getItem("token"),
+    },
+  });

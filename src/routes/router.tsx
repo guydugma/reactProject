@@ -14,7 +14,7 @@ import CreateCard from "./CreateCard.tsx";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <ProtectedRoute> <Root /></ProtectedRoute>,
     errorElement: <Error />,
     children: [
       { index: true, element: <Cards /> },

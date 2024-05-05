@@ -6,11 +6,11 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { RxAvatar } from "react-icons/rx";
-import Buttontry from "../DarkModeToggle/Buttontry";
+import Buttontry from "./DarkModeToggle/Buttontry";
 
 const SiteNav = () => {
 
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <Navbar expand="lg" className="bg-body-tertiary" collapseOnSelect>

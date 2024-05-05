@@ -18,7 +18,7 @@ const Login = () => {
         showSuccessDialog("Login", "Logged in").then(() => {
           login(res.data);
           // send the user to home page
-          navigate("/profile");
+          navigate("/cards");
         });
       })
       .catch((e) => {
