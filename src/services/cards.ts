@@ -11,7 +11,7 @@ export const createCard = (data: CardType) => axios.post(baseUrl,data, {
   },
 });
 
-export const likeCard = (id: string) => axios.patch(baseUrl + `/${id}`, {
+export const likeCard = (id: string) => axios.patch(baseUrl + `/${id}`,"", {
     headers: {
     "x-auth-token": localStorage.getItem("token"),
     },
