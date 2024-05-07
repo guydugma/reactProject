@@ -10,17 +10,16 @@ import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import react from '@vitejs/plugin-react';
 import LikeBtn from './LikeBtn/LikeBtn';
+import { useAuth } from '../../hooks/useAuth';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
   card: CardType;
+  func: () => void;
 }
 
-export default function MediaCard(props: Props) {
+export default function MediaCard(props: Props, { children }) {
   let c = props.card;
-
-  const addToFavs = (card: CardType) => {
-
-  }
 
   return (
     <Card sx={{ width: 300, height: 400 }}>
@@ -39,7 +38,7 @@ export default function MediaCard(props: Props) {
       </CardContent>
       <CardActions disableSpacing>
         <Button href={`/cards/${c._id}`} size="small" >Learn More</Button>
-        <LikeBtn card={c} />
+        {useAuth().isLoggedIn && <LikeBtn card={c} func={props.func} />}
       </CardActions>
     </Card>
   );

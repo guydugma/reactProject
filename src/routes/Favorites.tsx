@@ -6,36 +6,51 @@ import { Grid } from "@mui/material";
 import { CardsContext } from '../contexts/CardsContext';
 import { useCards } from '../hooks/useCards';
 import MediaCard from '../components/ThumbnailCard/MediaCard';
-import LikeBtn from '../components/ThumbnailCard/LikeBtn/LikeBtn';
+import { RefreshContext } from '../contexts/RefreshContext';
+
 
 
 
 const Cards = () => {
   const cardsContext = useContext(CardsContext);
+  const refreshContext = useContext(RefreshContext);
+  const [refreshFlag, setRefreshFlag] = useState(false);
   const { cards, loading, error } = useCards();
+  const [allCards, setAllCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>(cards);
-  const [likeFlag, setLikeFlag] = useState(false); //rerenders page when a card is liked/unliked
+  const userId = localStorage.getItem("user_id") ?? "no user id";
+
 
   useEffect(() => {
-    const f = cards.filter((c) => c.title.includes(cardsContext.input));
+    const f = cards.filter((c) => c.title.includes(cardsContext.input)).filter((c) => c.likes.includes(userId));
     setFilteredCards(f);
-  }, [cardsContext.input, likeFlag]);
+  }, [cardsContext.input]);
 
   useEffect(() => {
-    setFilteredCards(cards);
+    setFilteredCards(cards.filter((c) => c.likes.includes(userId)));
   }, [loading]);
 
+  useEffect(() => {
+    console.log("here2")
+    getCards().then((res) => {
+      setFilteredCards(res.data.filter((c) => c.likes.includes(userId)));
+    }).catch((e) => {
+      console.log(e)
+    })
+  }, [refreshFlag]);
 
-
+  const refresh = () => {
+    setRefreshFlag(!refreshFlag);
+  }
 
   return (<>
     {loading && <div>{loading}</div>}
     {error && <div>{error}</div>}
     {<Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4} sx={{ mt: 5 }}>
       {filteredCards.map((c) => (
-        <Grid item key={c._id}>
-          <MediaCard card={c} />
-        </Grid>
+        (<Grid item key={c._id}>
+          <MediaCard card={c} func={refresh} />
+        </Grid>)
       ))}
 
     </Grid>}

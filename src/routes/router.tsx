@@ -10,6 +10,8 @@ import Root from "../layouts/Root.tsx";
 import ProtectedRoute from "../components/ProtectedRoute.tsx";
 import Profile from "./Profile.tsx";
 import CreateCard from "./CreateCard.tsx";
+import Favorites from "./Favorites.tsx";
+
 
 export const router = createBrowserRouter([
   {
@@ -22,20 +24,17 @@ export const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/cards", element: <Cards /> },
       { path: "/cards/:id", element: <Card /> },
+      { path: "/favorites", element: <Favorites /> },
       {
         path: "/createcard",
         element: (
-          <ProtectedRoute>
-            <CreateCard />
-          </ProtectedRoute>
+          <CreateCard />
         ),
       },
       {
         path: "/profile",
         element: (
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
+          <Profile />
         ),
       },
       {

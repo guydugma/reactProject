@@ -13,15 +13,18 @@ import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 import { TryProvider } from "./contexts/TryContext.tsx";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CardsProvider } from "./contexts/CardsContext.tsx";
+import { RefreshProvider } from "./contexts/RefreshContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthContextProvider>
       <TryProvider>
-        <CardsProvider>
-          <CssBaseline />
-          <RouterProvider router={router} />
-        </CardsProvider>
+        <RefreshProvider>
+          <CardsProvider>
+            <CssBaseline />
+            <RouterProvider router={router} />
+          </CardsProvider>
+        </RefreshProvider>
       </TryProvider>
     </AuthContextProvider>
   </React.StrictMode>
