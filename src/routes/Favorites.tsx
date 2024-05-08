@@ -11,7 +11,7 @@ import { RefreshContext } from '../contexts/RefreshContext';
 
 
 
-const Cards = () => {
+const Favorites = () => {
   const cardsContext = useContext(CardsContext);
   const refreshContext = useContext(RefreshContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
@@ -47,6 +47,7 @@ const Cards = () => {
     {loading && <div>{loading}</div>}
     {error && <div>{error}</div>}
     {<Grid container className="flex flex-row flex-wrap justify-center items-center" spacing={8} columns={4} sx={{ mt: 5 }}>
+      {filteredCards.length === 0 && <div>No cards found</div>}
       {filteredCards.map((c) => (
         (<Grid item key={c._id}>
           <MediaCard card={c} func={refresh} />
@@ -59,4 +60,4 @@ const Cards = () => {
 };
 
 
-export default Cards;
+export default Favorites;

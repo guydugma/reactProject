@@ -15,10 +15,11 @@ import { useLocation } from 'react-router-dom';
 
 type Props = {
   card: CardType;
-  func: () => void;
+  func?: () => void;
+  likeErr?: () => void;
 }
 
-export default function MediaCard(props: Props, { children }) {
+const MediaCard = (props: Props) => {
   let c = props.card;
 
   return (
@@ -38,8 +39,10 @@ export default function MediaCard(props: Props, { children }) {
       </CardContent>
       <CardActions disableSpacing>
         <Button href={`/cards/${c._id}`} size="small" >Learn More</Button>
-        {useAuth().isLoggedIn && <LikeBtn card={c} func={props.func} />}
+        {useAuth().isLoggedIn && <LikeBtn card={c} func={props.func} likeErr={props.likeErr} />}
       </CardActions>
     </Card>
   );
 }
+
+export default MediaCard;

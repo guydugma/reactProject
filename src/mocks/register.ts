@@ -19,5 +19,5 @@ export const registerMock = {
     "houseNumber": 5,
     "zip": 35
   },
-  "isBusiness": true
+  "isBusiness": false
 }

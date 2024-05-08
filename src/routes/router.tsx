@@ -16,7 +16,7 @@ import Favorites from "./Favorites.tsx";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedRoute> <Root /></ProtectedRoute>,
+    element: <Root />,
     errorElement: <Error />,
     children: [
       { index: true, element: <Cards /> },
