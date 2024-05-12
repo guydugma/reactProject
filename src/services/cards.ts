@@ -16,3 +16,9 @@ export const likeCard = (id: string) => axios.patch(baseUrl + `/${id}`,"", {
     "x-auth-token": localStorage.getItem("token"),
     },
   });
+
+export const getCardsByUser = () => axios.get(baseUrl + "/my-cards", {
+    headers: {
+    "x-auth-token": localStorage.getItem("token"),
+    },
+  });

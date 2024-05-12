@@ -1,0 +1,7 @@
+.MediaCard{
+  flex-grow: 1;
+  
+    &:hover{
+    transform: scale(1.05);
+  }
+}

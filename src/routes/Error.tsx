@@ -1,5 +1,5 @@
 import { useRouteError } from "react-router-dom";
-import "./Error.scss";
+import "./Styles/Error.scss";
 
 type ErrorType = {
   status: number;

@@ -1,17 +1,18 @@
 import { useEffect, useState, useContext } from 'react';
 import { CardType } from "../@types/types";
-import { Divider, Grid, Stack, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { CardsContext } from '../contexts/CardsContext';
-import { useCards } from '../hooks/useCards';
+import { useUserCards } from '../hooks/useCards';
 import MediaCard from '../components/ThumbnailCard/MediaCard';
 import Alert from '@mui/material/Alert';
 import Fade from '@mui/material/Fade';
+import { getCardsByUser } from '../services/cards';
 
 
 
-const Cards = () => {
+const MyCards = () => {
   const cardsContext = useContext(CardsContext);
-  const { cards, loading, error } = useCards();
+  const { cards, loading, error } = useUserCards();
   const [filteredCards, setFilteredCards] = useState<CardType[]>(cards);
   const [likeError, setLikeError] = useState(false);
 
@@ -21,25 +22,21 @@ const Cards = () => {
   }, [cardsContext.input, loading]);
 
   const likeErrMsg = () => {
-    console.log("here")
     setLikeError(true);
     setTimeout(() => {
       setLikeError(false);
     }, 3000);
   }
-
   const alert = () => {
     return (<Alert severity="error" sx={{ position: 'fixed', bottom: '0', right: '0', transform: 'translate(-50%, -50%)' }}>Couldn't add to favorites. Please try again later.</Alert>)
   }
 
-  return (<Stack>
-    <Typography variant='h1' color={'primary'} align='center'>GALILEGO</Typography>
-    <Typography variant='h4' color={'primary'} align='center'>Our Businesses</Typography>
-    <Divider sx={{ my: 1 }} />
+  return (<>
+    {filteredCards.length === 0 && <div>You haven't created any cards</div>}
     {loading && <div>{loading}</div>}
     {error && <div>{error}</div>}
     {
-      <Grid container className="flex flex-row  items-center" columnGap={1} rowGap={6} sx={{ justifyContent: "space-around", alignItems: "flex-start" }} >
+      <Grid container className="flex flex-row  items-center" columnGap={1} rowGap={6} sx={{ justifyContent: "space-between", alignItems: "flex-start" }} >
         {filteredCards.map((c) => (
           <Grid item key={c._id} xs={5} sm={5} md={3} lg={2} sx={{ display: "flex" }}>
             <MediaCard card={c} likeErr={likeErrMsg} />
@@ -52,9 +49,9 @@ const Cards = () => {
     }
 
     <Fade in={likeError} timeout={{ enter: 500, appear: 2000, exit: 500 }} children={alert()}></Fade>
-  </Stack>
+  </>
   );
 };
 
 
-export default Cards;
+export default MyCards;

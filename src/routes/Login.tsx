@@ -6,6 +6,7 @@ import dialogs, { showSuccessDialog } from "../ui/dialogs";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Container, Stack, TextField, Typography } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,12 +34,13 @@ const Login = () => {
   } = useForm<LoginUser>();
 
   return (
-    <div>
-      <h2>Login Page</h2>
+    <Container>
+
+      <Typography variant="h4" sx={{ mb: 2 }}>Login Page</Typography>
       <form noValidate onSubmit={handleSubmit(onLogin)}>
         {/* email */}
-        <section>
-          <input
+        <Stack sx={{ gap: 2, width: "50%" }}>
+          <TextField
             placeholder="Email"
             autoCapitalize="true"
             autoCorrect="false"
@@ -50,11 +52,11 @@ const Login = () => {
             })}
           />
           {errors.email && <p>{errors.email?.message}</p>}
-        </section>
 
-        {/* password */}
-        <section>
-          <input
+
+          {/* password */}
+
+          <TextField
             autoComplete="current-password"
             placeholder="Password"
             type="password"
@@ -64,11 +66,13 @@ const Login = () => {
             })}
           />
           {errors.password && <p>{errors.password?.message}</p>}
-        </section>
 
-        <button>Login</button>
+
+          <button>Login</button>
+        </Stack>
       </form>
-    </div>
+
+    </Container>
   );
 };
 

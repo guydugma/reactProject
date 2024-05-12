@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 import { decodedType } from "../@types/types";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -18,21 +19,22 @@ export const AuthContextProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      setUserPrevileges(jwtDecode(token));
+      localStorage.setItem("user_id", userPrevileges._id);
     }
   }, []);
 
   const login = (jwt: string) => {
     setIsLoggedIn(true);
-
     localStorage.setItem("token", jwt);
-    let decoded: decodedType = jwtDecode(jwt);
-    setUserPrevileges(decoded);
-    localStorage.setItem("user_id", decoded._id);
+    setUserPrevileges(jwtDecode(jwt));
+    localStorage.setItem("user_id", userPrevileges._id);
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
   };
 
 

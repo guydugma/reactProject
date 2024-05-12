@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { RegisterUser } from "../@types/types";
 import patterns from "../validation/patterns";
-import "./Register.scss";
+import "./Styles/Register.scss"
 import { DevTool } from "@hookform/devtools";
 import { BsEye, BsEyeSlashFill } from "react-icons/bs";
 import { useState } from "react";
@@ -9,7 +9,7 @@ import { registerMock } from "../mocks/register";
 import auth from "../services/auth";
 import dialogs from "../ui/dialogs";
 import { useNavigate } from "react-router-dom";
-import { Button, Divider, FormControl, FormControlLabel, IconButton, Input, InputAdornment, OutlinedInput, Stack, TextField } from "@mui/material";
+import { Button, Container, Divider, FormControl, FormControlLabel, IconButton, Input, InputAdornment, OutlinedInput, Stack, TextField, Typography } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -21,7 +21,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterUser>({
-    defaultValues: registerMock,
+
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,8 +48,8 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
+    <Container className="register-container">
+      <Typography variant="h4" sx={{ marginBottom: 2 }}>Sign Up</Typography>
       <form onSubmit={handleSubmit(onRegister)}>
         <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }} overflow={"auto"}
           divider={<Divider orientation="vertical" flexItem />}>
@@ -104,7 +104,7 @@ const Register = () => {
         <Divider variant="middle" component={"div"} />
         {/* phone */}
         <Stack spacing={2} direction="row" sx={{ marginBottom: 4, marginTop: 4 }} overflow={"auto"}>
-          <Stack spacing={2} direction="column" sx={{ marginBottom: 4 }} overflow={"auto"}>
+          <Stack spacing={2} direction="column" sx={{ marginBottom: 4, width: "50%" }} overflow={"auto"}>
 
             <TextField
               placeholder="Phone"
@@ -220,7 +220,7 @@ const Register = () => {
 
           </Stack>
           {/* address.state */}
-          <Stack spacing={2} direction="column" sx={{ marginBottom: 4 }} overflow={"auto"}>
+          <Stack spacing={2} direction="column" sx={{ marginBottom: 4, width: "50%" }} overflow={"auto"}>
 
             <TextField
               placeholder="State"
@@ -324,7 +324,7 @@ const Register = () => {
 
       </form>
       {/* <DevTool control={control} /> */}
-    </div >
+    </Container >
   );
 };
 

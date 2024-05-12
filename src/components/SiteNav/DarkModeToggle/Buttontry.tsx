@@ -11,10 +11,12 @@ const Buttontry = () => {
   const theme = useTheme();
   const colorMode = useContext(TryContext);
   return (
-    <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+    <IconButton sx={{ ml: 1, display: { xs: 'none', sm: 'flex' } }} onClick={colorMode.toggleColorMode} color="inherit" >
       {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
     </IconButton>
   )
 }
 
+
 export default Buttontry;
+

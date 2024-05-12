@@ -17,15 +17,16 @@ import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { CardsContext } from '../../contexts/CardsContext';
-import { NavLink, redirect, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, redirect, useLocation, useNavigate } from 'react-router-dom';
 import auth, { userDetails } from '../../services/auth';
 import { router } from '../../routes/router';
-import { Link } from '@mui/material';
+import { colors } from '@mui/material';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
 import ProfileOptions from './ProfileOptions/ProfileOptions';
 import SearchBar from './SearchBar/SearchBar';
 import NavLinks from './NavLinks/NavLinks';
+import PetsIcon from '@mui/icons-material/Pets';
 
 
 
@@ -33,8 +34,8 @@ import NavLinks from './NavLinks/NavLinks';
 
 const noUserPages = ['about', 'register', 'login'];
 const userPages = ['about', 'favorites'];
-const buisnessUserPages = ['about', 'favorites', 'my cards'];
-const adminUserPages = ['about', 'favorites', 'my cards', 'sandbox'];
+const buisnessUserPages = ['about', 'favorites', 'my cards', 'create card'];
+const adminUserPages = ['about', 'favorites', 'my cards', 'create card', 'sandbox'];
 
 
 function ResponsiveAppBar() {
@@ -51,22 +52,19 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-
-
-
   return (
+
     <AppBar position="sticky">
-      <Container maxWidth="xl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
-            href="/"
+            href='/'
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', sm: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -74,20 +72,39 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <PetsIcon sx={{ display: { xs: 'none', sm: 'flex' }, mr: 1 }} />
+            GALILEGO
           </Typography>
-
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href='/'
+            sx={{
+              mr: 2,
+              display: { xs: 'none', sm: 'flex', md: 'none' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <PetsIcon sx={{ mr: 1 }} />
+          </Typography>
           {!isLoggedIn && (<NavLinks pages={noUserPages} />)}
           {(isLoggedIn && userPrevileges.isAdmin && (<NavLinks pages={adminUserPages} />))}
           {(isLoggedIn && !userPrevileges.isAdmin && userPrevileges.isBusiness) && (<NavLinks pages={buisnessUserPages} />)}
           {isLoggedIn && !userPrevileges.isAdmin && !userPrevileges.isBusiness && (<NavLinks pages={userPages} />)}
 
           <SearchBar />
-          {isLoggedIn && <ProfileOptions />}
           <Buttontry />
+          {isLoggedIn && <ProfileOptions />}
         </Toolbar>
+
       </Container>
     </AppBar>
+
   );
 }
 export default ResponsiveAppBar;
